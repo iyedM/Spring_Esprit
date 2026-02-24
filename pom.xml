@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>tn.esprit</groupId>
-    <artifactId>mohamed_ali_baaroun_artic10</artifactId>
+    <artifactId>iyed_mohamed_artic10</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>mohamed_ali_baaroun_artic10</name>
-    <description>mohamed_ali_baaroun_artic10</description>
+    <name>iyed_mohamed_artic10</name>
+    <description>iyed_mohamed_artic10</description>
     <url/>
     <licenses>
         <license/>
