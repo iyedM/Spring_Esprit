@@ -12,4 +12,6 @@ public interface ICallsServices {
     Calls getById (Long c) ;
     List<Calls> getAll () ;
     void deleteCalls (Long Id);
+
+    Calls assignToAgent(Long CallsId, Long AgentId);
 }

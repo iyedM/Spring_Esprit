@@ -17,7 +17,10 @@ public class HomeController {
         response.put("message", "Bienvenue sur l'API Arctic10 - Iyed Mohamed");
         response.put("status", "Application is running successfully!");
         response.put("endpoints", Map.of(
+                "agents", "/api/agents",
+                "aisystems", "/api/aisystems",
                 "calls", "/api/calls",
+                "projectdetails", "/api/projectdetails",
                 "projects", "/api/projects"
         ));
         return response;

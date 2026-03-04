@@ -2,35 +2,39 @@ package tn.esprit.iyed_mohamed_artic10.Services;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import tn.esprit.iyed_mohamed_artic10.Repositories.IAiSystems;
 import tn.esprit.iyed_mohamed_artic10.entities.AiSystems;
 
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class AiSystemsServicesImp implements IAiSystemsServices{
+public class AiSystemsServicesImp implements IAiSystemsServices {
+
+    private final IAiSystems aiSystemsRepository;
+
     @Override
-    public IAiSystemsServices addIaiSystems(AiSystems systems) {
-        return null;
+    public AiSystems addAiSystem(AiSystems system) {
+        return aiSystemsRepository.save(system);
     }
 
     @Override
-    public IAiSystemsServices UpdateIaiSystems(AiSystems systems) {
-        return null;
+    public AiSystems updateAiSystem(AiSystems system) {
+        return aiSystemsRepository.save(system);
     }
 
     @Override
-    public IAiSystemsServices getById(Long systems) {
-        return null;
+    public AiSystems getById(Long id) {
+        return aiSystemsRepository.findById(id).orElse(null);
     }
 
     @Override
-    public List<IAiSystemsServices> getAll() {
-        return List.of();
+    public List<AiSystems> getAll() {
+        return aiSystemsRepository.findAll();
     }
 
     @Override
-    public void deleteIaiSystems(Long systems) {
-
+    public void deleteAiSystem(Long id) {
+        aiSystemsRepository.deleteById(id);
     }
 }

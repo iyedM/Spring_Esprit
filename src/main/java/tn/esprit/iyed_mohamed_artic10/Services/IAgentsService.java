@@ -1,15 +1,14 @@
 package tn.esprit.iyed_mohamed_artic10.Services;
 
 import org.springframework.stereotype.Service;
-import tn.esprit.iyed_mohamed_artic10.Repositories.IAgents;
-
+import tn.esprit.iyed_mohamed_artic10.entities.Agents;
 import java.util.List;
 
-@Service
 public interface IAgentsService {
-    IAgents addIAgents (IAgents iAgents) ;
-    IAgents UpdateIAgents (IAgents iAgents) ;
-    IAgents getById (Long iAgents) ;
-    List<IAgents> getAll () ;
-    void deleteIAgents (Long Id);
+
+    Agents addAgent(Agents agent);
+    Agents updateAgent(Agents agent);
+    Agents getById(Long id);
+    List<Agents> getAll();
+    void deleteAgent(Long id);
 }
