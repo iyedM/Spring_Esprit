@@ -3,9 +3,11 @@ package tn.esprit.iyed_mohamed_artic10.Controllers;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.iyed_mohamed_artic10.Services.ICallsServices;
+import tn.esprit.iyed_mohamed_artic10.dto.HumanAgentRequiredResponse;
 import tn.esprit.iyed_mohamed_artic10.entities.Calls;
 
 import java.util.List;
+import java.util.Set;
 
 @RequiredArgsConstructor
 @RestController
@@ -44,9 +46,38 @@ public class CallRestController {
         callsServices.deleteCalls(id);
     }
 
-    // Assigner un call à un agent
-    @PutMapping("/assign/{callId}/{agentId}")
-    public Calls assignCallToAgent(@PathVariable Long callId, @PathVariable Long agentId) {
-        return callsServices.assignToAgent(callId, agentId);
+    // ============ Q.1 - Assigner un appel à un agent ============
+    @PutMapping("/assignToAgent/{callId}/{agentId}")
+    public void assignCallToAgent(@PathVariable Long callId, @PathVariable Long agentId) {
+        callsServices.assignCallToAgent(callId, agentId);
+    }
+
+    // ============ Q.2 - Assigner un appel à un système IA ============
+    @PutMapping("/assignToAISystem/{callId}/{aiSystemId}")
+    public void assignCallToAISystem(@PathVariable Long callId, @PathVariable Long aiSystemId) {
+        callsServices.assignCallToAISystem(callId, aiSystemId);
+    }
+
+    // ============ Q.3 - Vérifier si un appel nécessite un agent humain ============
+    @GetMapping("/requiresHumanAgent/{callId}")
+    public HumanAgentRequiredResponse callRequiresHumanAgent(@PathVariable Long callId) {
+        Calls call = callsServices.getById(callId);
+        boolean requires = callsServices.callRequiresHumanAgent(call);
+        String message = requires ? 
+            "Cet appel nécessite l'intervention d'un agent humain (Technical_support)" :
+            "Cet appel peut être géré par un système IA";
+        return new HumanAgentRequiredResponse(callId, requires, message);
+    }
+
+    // ============ Q.4 - Affectation automatique d'appels aux agents ============
+    @PostMapping("/autoAssignCallsToAgents")
+    public void autoAssignCallsToAgents(@RequestBody Set<Long> callIds) {
+        callsServices.autoAssignCallsToAgents(callIds);
+    }
+
+    // ============ Q.5 - Affectation intelligente d'appels (agent ou IA) ============
+    @PostMapping("/assignCallsToAgents")
+    public void assignCallsToAgents(@RequestBody Set<Long> callIds) {
+        callsServices.assignCallsToAgents(callIds);
     }
 }
