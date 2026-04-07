@@ -1,5 +1,7 @@
 package tn.esprit.iyed_mohamed_artic10.Services;
 
+import tn.esprit.iyed_mohamed_artic10.Enum.CallSkills;
+import tn.esprit.iyed_mohamed_artic10.Enum.CallStatus;
 import org.springframework.stereotype.Service;
 import tn.esprit.iyed_mohamed_artic10.entities.Calls;
 
@@ -28,4 +30,18 @@ public interface ICallsServices {
 
     // Q.5 - Intelligent assignment (agent or AI based on needs)
     void assignCallsToAgents(Set<Long> callIds);
+
+    List<Calls> findByStatusAndAssignedAgent_AgentsId(CallStatus callStatus, long agentId);
+
+    List<Calls> findByStatus(CallStatus callStatus);
+
+    List<Calls> findByAssignedAgentIsNull();
+
+    List<Calls> findByRequiredSkillsContains(CallSkills skill);
+
+    List<Calls> findTop5ByOrderByCallDateTimeAscAndRequiredSkillsIn(CallSkills skill);
+
+    boolean existsByPhoneNumber(String phoneNumber);
+
+    long countByStatus(CallStatus callStatus);
 }

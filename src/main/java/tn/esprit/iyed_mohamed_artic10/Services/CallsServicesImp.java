@@ -3,6 +3,7 @@ package tn.esprit.iyed_mohamed_artic10.Services;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import tn.esprit.iyed_mohamed_artic10.Enum.CallSkills;
 import tn.esprit.iyed_mohamed_artic10.Enum.CallStatus;
@@ -163,6 +164,41 @@ public class CallsServicesImp implements ICallsServices {
             }
             // Si l'appel ne nécessite pas une intervention humaine → pas d'affectation
         }
+    }
+
+    @Override
+    public List<Calls> findByStatusAndAssignedAgent_AgentsId(CallStatus callStatus, long agentId) {
+        return callsRepository.findByCallStatusAndAssignedAgent_AgentsId(callStatus, agentId);
+    }
+
+    @Override
+    public List<Calls> findByStatus(CallStatus callStatus) {
+        return callsRepository.findByCallStatus(callStatus);
+    }
+
+    @Override
+    public List<Calls> findByAssignedAgentIsNull() {
+        return callsRepository.findByAssignedAgentIsNull();
+    }
+
+    @Override
+    public List<Calls> findByRequiredSkillsContains(CallSkills skill) {
+        return callsRepository.findByRequiredSkillsContains(skill);
+    }
+
+    @Override
+    public List<Calls> findTop5ByOrderByCallDateTimeAscAndRequiredSkillsIn(CallSkills skill) {
+        return callsRepository.findByRequiredSkillsContainsOrderByCallDateTimeAsc(skill, PageRequest.of(0, 5));
+    }
+
+    @Override
+    public boolean existsByPhoneNumber(String phoneNumber) {
+        return callsRepository.existsByPhoneNumber(phoneNumber);
+    }
+
+    @Override
+    public long countByStatus(CallStatus callStatus) {
+        return callsRepository.countByCallStatus(callStatus);
     }
 
     // Méthode helper pour vérifier si un agent a les compétences requises

@@ -2,6 +2,8 @@ package tn.esprit.iyed_mohamed_artic10.Controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import tn.esprit.iyed_mohamed_artic10.Enum.CallSkills;
+import tn.esprit.iyed_mohamed_artic10.Enum.CallStatus;
 import tn.esprit.iyed_mohamed_artic10.Services.ICallsServices;
 import tn.esprit.iyed_mohamed_artic10.dto.HumanAgentRequiredResponse;
 import tn.esprit.iyed_mohamed_artic10.entities.Calls;
@@ -79,5 +81,40 @@ public class CallRestController {
     @PostMapping("/assignCallsToAgents")
     public void assignCallsToAgents(@RequestBody Set<Long> callIds) {
         callsServices.assignCallsToAgents(callIds);
+    }
+
+    @GetMapping("/findByStatusAndAgentId/{status}/{agentId}")
+    public List<Calls> findByStatusAndAssignedAgent_AgentsId(@PathVariable CallStatus status, @PathVariable long agentId) {
+        return callsServices.findByStatusAndAssignedAgent_AgentsId(status, agentId);
+    }
+
+    @GetMapping("/findByStatus/{status}")
+    public List<Calls> findByStatus(@PathVariable CallStatus status) {
+        return callsServices.findByStatus(status);
+    }
+
+    @GetMapping("/findUnassigned")
+    public List<Calls> findByAssignedAgentIsNull() {
+        return callsServices.findByAssignedAgentIsNull();
+    }
+
+    @GetMapping("/findByRequiredSkills/{skill}")
+    public List<Calls> findByRequiredSkillsContains(@PathVariable CallSkills skill) {
+        return callsServices.findByRequiredSkillsContains(skill);
+    }
+
+    @GetMapping("/getTop5ByCallsDateTimeAndRequiredSkillsIn/{skill}")
+    public List<Calls> findTop5ByOrderByCallDateTimeAscAndRequiredSkillsIn(@PathVariable CallSkills skill) {
+        return callsServices.findTop5ByOrderByCallDateTimeAscAndRequiredSkillsIn(skill);
+    }
+
+    @GetMapping("/existsByPhoneNumber/{phoneNumber}")
+    public boolean existsByPhoneNumber(@PathVariable String phoneNumber) {
+        return callsServices.existsByPhoneNumber(phoneNumber);
+    }
+
+    @GetMapping("/countByStatus/{status}")
+    public long countByStatus(@PathVariable CallStatus status) {
+        return callsServices.countByStatus(status);
     }
 }
